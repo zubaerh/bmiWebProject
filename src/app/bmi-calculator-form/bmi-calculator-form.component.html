@@ -1,0 +1,68 @@
+<form [formGroup]="control">
+    <div class="mb-3">
+      <label class="inline-block mb-2">First Name</label>
+      <app-input [control]="firstName" placeholder="Enter your first Name"></app-input>
+    </div>
+    <div class="mb-3">
+        <label class="inline-block mb-2">Last Name</label>
+        <app-input [control]="lastName" placeholder="Enter your last Name"></app-input>
+      </div>
+    <div class="mb-3">
+      <label class="inline-block mb-2">Email</label>
+      <app-input [control]="email" type="email" placeholder="Enter Email"></app-input>
+    </div>
+    <div>
+      Gender
+      <label>
+        <input type="radio" name="color" (change)="selectedGender = 'Mr.'"> Male
+      </label>
+      <label>
+        <input type="radio" name="color" (change)="selectedGender = 'Ms.'"> Female
+      </label>
+  </div>
+    <div class="mb-3">
+      <h3>Your Hight</h3>
+      <label class="inline-block mb-2">feet</label>
+      <app-input [control]="feet" type="number" placeholder="feet"
+      class="input"(input)="enterInputFeet($event)">
+      </app-input>
+        <label class="inline-block mb-2">inches</label>
+        <app-input [control]="inches" type="number" placeholder="inches"
+        class="input"(input)="enterInputInches($event)">
+        </app-input>
+        = {{ enteredFeet | convertfeetToInches : enteredInches}}
+       </div>
+    <div class="mb-3">
+      <h3>Your Weight(kg)</h3>
+        <label class="inline-block mb-2"></label>
+        <app-input [control]="weight" type="number" placeholder="weight"
+        class="input"(input)="enterInputWeight($event)">
+      </app-input>
+        = {{ enteredWeight | convertKgToPounds}}
+       </div>
+    
+    <button (click)="onButtonClick()" type="submit"
+      class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition
+        hover:bg-indigo-500" >
+      Submit
+    </button>
+  </form>
+
+  <hr>
+  <div>
+    //this info is temporary test info
+    Your Gender is: {{selectedGender}} 
+    your BMI is: {{bmi | number: '1.2-2'}}. 
+    Your weight range is: {{bmi | bmiResult}}.
+    
+  </div>
+  <hr>
+  <app-card 
+  [fname]="control.get('firstName')?.value"
+  [lname]="control.get('lastName')?.value"
+  [email]="control.get('email')?.value"
+  [selectedG]="control.get('selectedGender')?.value"
+  [bmiA]="control.get('bmi')?.value"
+  [result]="control.get(bmi | bmiResult)?.value"
+  ></app-card>
+
